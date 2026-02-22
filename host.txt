@@ -1,1 +1,25 @@
 postgresql://db_contacts_npp0_user:vaFqCyXcTJrJvut5bHWlmqYj40v4xmAe@dpg-d6cmq4ogjchc739oam20-a.oregon-postgres.render.com/db_contacts_npp0
+
+
+"dpg-d6cmq4ogjchc739oam20-a.oregon-postgres.render.com"
+
+
+import { Sequelize } from "sequelize";
+
+
+const sequelize = new Sequelize({
+  dialect: process.env.DATABASE_DIALECT,
+  host: process.env.DATABASE_DIALECT,
+  username: process.env.DATABASE_DIALECT"db_contacts_npp0_user",
+  database: process.env.DATABASE_DIALECT"db_contacts_npp0",
+  password: process.env.DATABASE_DIALECT"vaFqCyXcTJrJvut5bHWlmqYj40v4xmAe",
+  port: 5432,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
+
+export default sequelize;
