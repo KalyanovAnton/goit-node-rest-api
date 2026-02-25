@@ -37,7 +37,7 @@ async function updateStatusContact(contactId, body) {
 
   if (!contact) return null;
 
-  await contact.update(contactData);
+  await contact.update(body);
   return contact;
 }
 export default {

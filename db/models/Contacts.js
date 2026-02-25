@@ -1,7 +1,5 @@
-
 import sequelize from "../sequelize.js";
 import { DataTypes } from "sequelize";
-
 
 const Contact = sequelize.define("contact", {
   name: {
@@ -20,8 +18,12 @@ const Contact = sequelize.define("contact", {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+  owner: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });
 
 await Contact.sync({ alter: true });
 
-export default Contact
+export default Contact;
