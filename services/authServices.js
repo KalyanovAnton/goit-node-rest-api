@@ -2,18 +2,22 @@ import User from "../db/models/User.js";
 import bcrypt from "bcrypt";
 import HttpError from "../helpers/HttpError.js";
 import { createToken } from "../helpers/jwtToken.js";
+import gravatar from 'gravatar'
 
 export const findUser = (where) => User.findOne({ where });
 
 export const registerUser = async (payload) => {
+  const{email, password} = payload
   const user = await User.findOne({ where: { email } });
 
   if (user) {
     throw HttpError(409, "Email in use");
   }
 
+  const avatarURL = gravatar.url(email, {s: '250', d: 'identicon'}, true)
+
   const hashPassword = await bcrypt.hash(payload.password, 10);
-  return User.create({ ...payload, password: hashPassword });
+  return User.create({ ...payload, password: hashPassword, avatarURL });
 };
 
 export const loginUser = async ({ email, password }) => {
@@ -29,7 +33,6 @@ export const loginUser = async ({ email, password }) => {
   const token = createToken(payload);
   return token;
 };
-
 
 export const updateUser = async (id, data) => {
   const user = await findUser({ id });
