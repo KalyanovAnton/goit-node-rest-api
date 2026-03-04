@@ -2,7 +2,6 @@ import { emailRegex } from "../../schemas/contactsSchemas.js";
 import sequelize from "../sequelize.js";
 import { DataTypes } from "sequelize";
 
-
 const User = sequelize.define("user", {
   password: {
     type: DataTypes.STRING,
@@ -12,17 +11,22 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      is: emailRegex
+      is: emailRegex,
     },
     unique: {
       args: true,
-      msg: "email alreay exist"
+      msg: "email alreay exist",
     },
   },
+
+  avatarURL: {
+    type: DataTypes.STRING,
+  },
+
   subscription: {
-      type: DataTypes.ENUM,
-      values: ["starter", "pro", "business"],
-      defaultValue: "starter"
+    type: DataTypes.ENUM,
+    values: ["starter", "pro", "business"],
+    defaultValue: "starter",
   },
   token: {
     type: DataTypes.STRING,
@@ -32,4 +36,4 @@ const User = sequelize.define("user", {
 
 await User.sync({ alter: true });
 
-export default User
+export default User;
