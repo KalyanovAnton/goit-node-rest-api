@@ -46,5 +46,30 @@ export const updateAvatarController = async (req, res) => {
   const avatarURL = `/avatars/${filename}`;
   await authService.updateUser(id, { avatarURL });
 
-  res.status(200).json({avatarURL})
+  res.status(200).json({ avatarURL });
+};
+
+export const verificationController = async (req, res) => {
+  const { verificationToken } = req.params;
+
+  const result = await authService.verifyUser(verificationToken);
+
+  if (!result) {
+    throw HttpError(404, "User not found");
+  }
+
+  return res.status(200).json({
+    message: "Verification successful",
+  });
+};
+
+
+export const resendVerificationController = async (req, res) => {
+  const { email } = req.body;
+  
+  await authService.resendVerificationEmail(email);
+
+  res.status(200).json({
+    message: "Verification email sent",
+  });
 };
